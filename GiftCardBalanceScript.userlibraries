@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="org.apache.httpcomponents.httpclient_4.5.2">
+    <archive path="/home/user/IdeaProjects/GiftCardBalanceScript/lib/httpcomponents-client-4.5.2/org.apache.httpcomponents.httpclient_4.5.2.jar" />
+  </library>
+  <library name="examples" />
+</eclipse-userlibraries>
+
