@@ -1,8 +1,11 @@
 package Head;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.Jsoup;
@@ -13,6 +16,7 @@ import org.jsoup.select.Elements;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.util.ArrayList;
@@ -37,14 +41,57 @@ public class HttpClientExample {
         String signPage = http.GetPageContent(url);
         System.out.println(signPage);
         //2
-        List<NameValuePair> postParams = http.getFormParams(signPage , "georgi.bg" , "azsamgeorgi1321");
-        System.out.println("Post parameters : " + postParams);
+        List<NameValuePair> postParams = http.getFormParams(signPage , "georgi95.bg@gmail.com" , "");
         //3
+        //test
+        http.sendPost(url, postParams);
+        //4
+        String result = http.GetPageContent(amazonGcB);
+        System.out.println(result);
 
+        System.out.println("Done");
 
 
 
     }
+
+    private void sendPost(String url, List<NameValuePair> postParams) throws IOException {
+
+        HttpPost post = new HttpPost(url);
+        // add header
+        post.setHeader("Host", "www.amazon.com");
+        post.setHeader("User-Agent", USER_AGENT);
+        post.setHeader("Accept",
+                "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+        post.setHeader("Accept-Language", "en-US,en;q=0.5");
+        post.setHeader("Cookie", getCookies());
+        post.setHeader("Connection", "keep-alive");
+        post.setHeader("Referer", "https://www.amazon.com/ap/signin");
+        post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        post.setEntity(new UrlEncodedFormEntity(postParams));
+
+        HttpResponse response = client.execute(post);
+
+        int responseCode = response.getStatusLine().getStatusCode();
+
+        System.out.println("\nSending 'POST' request to URL : " + url);
+        System.out.println("Post parameters : " + postParams);
+        System.out.println("Response Code : " + responseCode);
+
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+
+        // System.out.println(result.toString());
+
+    }
+
 
     private java.util.List<NameValuePair> getFormParams(String html, String username, String password) {
         System.out.println("Extracting form's data...");
@@ -105,7 +152,11 @@ public class HttpClientExample {
 
     }
 
-    private void setCookies(String cookies) {
+    public void setCookies(String cookies) {
         this.cookies = cookies;
+    }
+
+    public String getCookies() {
+        return cookies;
     }
 }
