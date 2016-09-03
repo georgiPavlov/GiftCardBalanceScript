@@ -9,5 +9,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="org.apache.httpcomponents.httpclient_4.5.2" level="project" />
     <orderEntry type="library" exported="" name="examples" level="project" />
+    <orderEntry type="library" exported="" name="examples1" level="project" />
+    <orderEntry type="library" exported="" name="examples2" level="project" />
+    <orderEntry type="library" name="httpcore-4.4.5" level="project" />
+    <orderEntry type="library" name="commons-logging-1.2" level="project" />
   </component>
 </module>

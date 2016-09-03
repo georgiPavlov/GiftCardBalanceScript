@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="examples2">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/httpcomponents-core-4.4.5/examples" />
+    </SOURCES>
+  </library>
+</component>
