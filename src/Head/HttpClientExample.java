@@ -41,14 +41,16 @@ public class HttpClientExample {
         String signPage = http.GetPageContent(url);
         System.out.println(signPage);
         //2
-        List<NameValuePair> postParams = http.getFormParams(signPage , "georgi95.bg@gmail.com" , "");
+        List<NameValuePair> postParams = http.getFormParams(signPage , "georgi95.bg@gmail.com" , "azsamgeorgi1321");
         //3
         //test
         http.sendPost(url, postParams);
         //4
         String result = http.GetPageContent(amazonGcB);
         System.out.println(result);
-
+        //to do sign out
+        //----------
+        //----------
         System.out.println("Done");
 
 
