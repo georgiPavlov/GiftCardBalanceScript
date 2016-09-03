@@ -1,15 +1,22 @@
 package Head;
 
-import com.sun.deploy.net.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.CookieHandler;
 import java.net.CookieManager;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -29,8 +36,41 @@ public class HttpClientExample {
         //1
         String signPage = http.GetPageContent(url);
         System.out.println(signPage);
+        //2
+        List<NameValuePair> postParams = http.getFormParams(signPage , "georgi.bg" , "azsamgeorgi1321");
+        System.out.println("Post parameters : " + postParams);
+        //3
 
 
+
+
+    }
+
+    private java.util.List<NameValuePair> getFormParams(String html, String username, String password) {
+        System.out.println("Extracting form's data...");
+
+        Document doc = Jsoup.parse(html);
+        Element loginform = doc.select("form[name=signIn]").first();
+        Elements inputElements = loginform.getElementsByTag("input");
+
+        List<NameValuePair> paramList = new ArrayList<>();
+
+        for (Element inputElement : inputElements) {
+            String key = inputElement.attr("name");
+            String value = inputElement.attr("value");
+
+            if (key.equals("email")){
+                value = username;
+            }
+            else if (key.equals("password")){
+                value = password;
+            }
+
+            paramList.add(new BasicNameValuePair(key, value));
+
+        }
+
+        return paramList;
 
 
     }
